@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <iconv.h>
 
 /* Consider all encodings, including the system dependent ones. */
 #define USE_AIX
@@ -27,9 +28,16 @@
 #define USE_DOS
 #define USE_EXTRA
 
-struct loop_funcs {};
-struct iconv_fallbacks {};
-struct iconv_hooks {};
+/*
+ * Data type for general conversion loop.
+ */
+struct loop_funcs {
+  size_t (*loop_convert) (iconv_t icd,
+                          const char* * inbuf, size_t *inbytesleft,
+                          char* * outbuf, size_t *outbytesleft);
+  size_t (*loop_reset) (iconv_t icd,
+                        char* * outbuf, size_t *outbytesleft);
+};
 #include "converters.h"
 
 static void emit_encoding (struct wctomb_funcs * ofuncs, const char* c_name)
