@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.2)
 
-project(libiconv LANGUAGES C)
+project(iconv LANGUAGES C)
+
+set(iconv_VERSION 1.14)
 
 if(MSVC)
   set(CMAKE_DEBUG_POSTFIX "d")
@@ -26,7 +28,7 @@ target_include_directories(genaliases PUBLIC
 #   ${CMAKE_CURRENT_SOURCE_DIR}/lib/aliases.h
 #   BYPRODUCTS ${CMAKE_CURRENT_SOURCE_DIR}/lib/aliases.h)
 
-add_library(libiconv STATIC
+add_library(iconv STATIC
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/armscii_8.h
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/ascii.h
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/atarist.h
@@ -255,20 +257,42 @@ add_library(libiconv STATIC
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/big5hkscs2004.h
 )
 target_include_directories(
-  libiconv PUBLIC
+  iconv PRIVATE
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/lib> 
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/libcharset/include> 
 
 )
 
-install(TARGETS libiconv EXPORT libiconvExport
+include(CMakePackageConfigHelpers)
+write_basic_package_version_file(
+  ${CMAKE_CURRENT_BINARY_DIR}/iconv-config-version.cmake
+  VERSION ${iconv_VERSION}
+  COMPATIBILITY AnyNewerVersion
+)
+
+install(TARGETS iconv EXPORT iconv
   RUNTIME DESTINATION bin
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib)
-install(EXPORT libiconvExport DESTINATION lib/cmake/libiconv)
 
 
 install(FILES
   ${CMAKE_CURRENT_SOURCE_DIR}/include/iconv.h
   DESTINATION include)
+
+install(EXPORT iconv
+  FILE
+    iconv.cmake
+  NAMESPACE
+    iconv::
+  DESTINATION
+    lib/cmake/iconv
+)
+install(
+  FILES
+    cmake/iconv-config.cmake
+    ${CMAKE_CURRENT_BINARY_DIR}/iconv-config-version.cmake
+  DESTINATION
+    lib/cmake/iconv
+)
