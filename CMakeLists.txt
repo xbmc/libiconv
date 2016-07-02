@@ -27,26 +27,26 @@ target_include_directories(genaliases PUBLIC
 #   BYPRODUCTS ${CMAKE_CURRENT_SOURCE_DIR}/lib/aliases.h)
 
 add_library(libiconv STATIC
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\armscii_8.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\ascii.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\atarist.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases.gperf
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_aix.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_aix_sysaix.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_dos.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_extra.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_osf1.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_osf1_sysosf1.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_sysaix.gperf
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_sysaix.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_syshpux.gperf
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_syshpux.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_sysosf1.gperf
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_sysosf1.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_syssolaris.gperf
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_syssolaris.h
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases2.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/armscii_8.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/ascii.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/atarist.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/aliases.gperf
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/aliases.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/aliases_aix.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/aliases_aix_sysaix.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/aliases_dos.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/aliases_extra.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/aliases_osf1.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/aliases_osf1_sysosf1.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/aliases_sysaix.gperf
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/aliases_sysaix.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/aliases_syshpux.gperf
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/aliases_syshpux.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/aliases_sysosf1.gperf
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/aliases_sysosf1.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/aliases_syssolaris.gperf
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/aliases_syssolaris.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/aliases2.h
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/big5hkscs2008.h
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/c99.h
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/ces_big5.h
@@ -262,12 +262,11 @@ target_include_directories(
 
 )
 
-add_dependencies(libiconv)
-
-install(TARGETS libiconv
+install(TARGETS libiconv EXPORT libiconvExport
   RUNTIME DESTINATION bin
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib)
+install(EXPORT libiconvExport DESTINATION lib/cmake/libiconv)
 
 
 install(FILES
