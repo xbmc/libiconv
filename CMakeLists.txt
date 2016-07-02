@@ -2,27 +2,51 @@ cmake_minimum_required(VERSION 3.2)
 
 project(libiconv LANGUAGES C)
 
+if(MSVC)
+  set(CMAKE_DEBUG_POSTFIX "d")
+endif()
+
 add_executable(genflags
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/genflags.c)
 target_include_directories(genflags PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/lib>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
-add_custom_target(gen-flags
-  COMMAND genflags >
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/flags.h
-  BYPRODUCTS ${CMAKE_CURRENT_SOURCE_DIR}/lib/flags.h)
+# add_custom_target(gen-flags
+#   COMMAND genflags >
+#   ${CMAKE_CURRENT_SOURCE_DIR}/lib/flags.h
+#   BYPRODUCTS ${CMAKE_CURRENT_SOURCE_DIR}/lib/flags.h)
 
 add_executable(genaliases
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/genaliases.c)
 target_include_directories(genaliases PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/lib>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
-add_custom_target(gen-aliases
-  COMMAND genaliases >
-  ${CMAKE_CURRENT_SOURCE_DIR}/lib/aliases.h
-  BYPRODUCTS ${CMAKE_CURRENT_SOURCE_DIR}/lib/aliases.h)
+# add_custom_target(gen-aliases
+#   COMMAND genaliases >
+#   ${CMAKE_CURRENT_SOURCE_DIR}/lib/aliases.h
+#   BYPRODUCTS ${CMAKE_CURRENT_SOURCE_DIR}/lib/aliases.h)
 
 add_library(libiconv STATIC
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\armscii_8.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\ascii.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\atarist.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases.gperf
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_aix.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_aix_sysaix.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_dos.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_extra.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_osf1.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_osf1_sysosf1.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_sysaix.gperf
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_sysaix.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_syshpux.gperf
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_syshpux.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_sysosf1.gperf
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_sysosf1.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_syssolaris.gperf
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases_syssolaris.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/lib/lib\aliases2.h
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/big5hkscs2008.h
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/c99.h
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/ces_big5.h
@@ -238,4 +262,14 @@ target_include_directories(
 
 )
 
-add_dependencies(libiconv gen-flags)
+add_dependencies(libiconv)
+
+install(TARGETS libiconv
+  RUNTIME DESTINATION bin
+  ARCHIVE DESTINATION lib
+  LIBRARY DESTINATION lib)
+
+
+install(FILES
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/iconv.h
+  DESTINATION include)
