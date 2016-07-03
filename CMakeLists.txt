@@ -255,6 +255,7 @@ add_library(iconv STATIC
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/big5hkscs1999.h
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/big5hkscs2001.h
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/big5hkscs2004.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/libcharset/lib/localcharset.c
 )
 target_include_directories(
   iconv PRIVATE
