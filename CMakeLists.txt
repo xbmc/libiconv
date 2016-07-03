@@ -261,7 +261,8 @@ target_include_directories(
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/lib> 
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/libcharset/include> 
-
+  INTERFACE
+  $<INSTALL_INTERFACE:include>
 )
 
 include(CMakePackageConfigHelpers)
