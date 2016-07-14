@@ -1,10 +1,8 @@
 cmake_minimum_required(VERSION 3.2)
 
-project(iconv LANGUAGES C)
+project(iconv VERSION 1.14 LANGUAGES C)
 
-set(iconv_VERSION 1.14)
-
-if(MSVC)
+if(WIN32)
   set(CMAKE_DEBUG_POSTFIX "d")
 endif()
 
@@ -297,4 +295,10 @@ install(
     ${CMAKE_CURRENT_BINARY_DIR}/iconv-config-version.cmake
   DESTINATION
     lib/cmake/iconv
+)
+
+export(TARGETS iconv
+  FILE
+  ${CMAKE_CURRENT_BINARY_DIR}/iconv-config.cmake
+  NAMESPACE iconv::
 )
