@@ -26,7 +26,7 @@ target_include_directories(genaliases PUBLIC
 #   ${CMAKE_CURRENT_SOURCE_DIR}/lib/aliases.h
 #   BYPRODUCTS ${CMAKE_CURRENT_SOURCE_DIR}/lib/aliases.h)
 
-add_library(iconv STATIC
+add_library(${PROJECT_NAME} STATIC
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/armscii_8.h
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/ascii.h
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/atarist.h
@@ -255,6 +255,7 @@ add_library(iconv STATIC
   ${CMAKE_CURRENT_SOURCE_DIR}/lib/big5hkscs2004.h
   ${CMAKE_CURRENT_SOURCE_DIR}/libcharset/lib/localcharset.c
 )
+add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 target_include_directories(
   iconv PRIVATE
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -262,6 +263,7 @@ target_include_directories(
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/libcharset/include> 
   INTERFACE
   $<INSTALL_INTERFACE:include>
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 )
 
 include(CMakePackageConfigHelpers)
